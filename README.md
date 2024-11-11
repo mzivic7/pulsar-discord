@@ -41,7 +41,7 @@ Released under the [MIT](https://en.wikipedia.org/wiki/MIT_License) License.
 
 >MIT License
 >
->Copyright (c) 2018 HelloWorld017
+>Copyright (c) 2018 HelloWorld017  
 >Copyright (c) 2024 mzivic7
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
