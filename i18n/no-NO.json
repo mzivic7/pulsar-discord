@@ -3,7 +3,7 @@
 	"working-no-project": "Arbeider med noen ting",
 	"editing-file": "Redigering %fileName%",
 	"editing-idle": "Tomgang",
-	"atom-description": "Jobber med Atom",
+	"pulsar-description": "Jobber med Pulsar",
 	"type-description": "Redigerer en %type% fil",
 	"type-unknown": "Redigerer en fil",
 	"developer-idle": "Utvikleren må hvile"

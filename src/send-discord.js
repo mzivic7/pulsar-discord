@@ -436,7 +436,7 @@ class DiscordSender {
 
 			const focusedContents = webContents.getFocusedWebContents();
 			if(focusedContents) {
-				focusedContents.send('atom-discord.noDiscord');
+				focusedContents.send('pulsar-discord.noDiscord');
 			}
 		}
 
@@ -486,9 +486,9 @@ class DiscordSender {
 
 const sender = new DiscordSender();
 
-ipcMain.on('atom-discord.initialize', event => {
+ipcMain.on('pulsar-discord.initialize', event => {
 	logging.log("Initializing configs...");
-	event.sender.executeJavaScript("atom.config.get('atom-discord')").then(configObject => {
+	event.sender.executeJavaScript("atom.config.get('pulsar-discord')").then(configObject => {
 		config.updateConfig(configObject);
 		sender.fillValues();
 		sender.setupRpc().then((v) => {
@@ -499,14 +499,14 @@ ipcMain.on('atom-discord.initialize', event => {
 	});
 });
 
-ipcMain.on('atom-discord.updateConfig', event => {
-	event.sender.executeJavaScript("atom.config.get('atom-discord')").then(configObject => {
+ipcMain.on('pulsar-discord.updateConfig', event => {
+	event.sender.executeJavaScript("atom.config.get('pulsar-discord')").then(configObject => {
 		config.updateConfig(configObject);
 		sender.fillValues();
 	});
 });
 
-ipcMain.on('atom-discord.logging', (event, {loggable, path}) => {
+ipcMain.on('pulsar-discord.logging', (event, {loggable, path}) => {
 	logging.enabled = loggable;
 	logging.path = path;
 
@@ -517,20 +517,20 @@ ipcMain.on('atom-discord.logging', (event, {loggable, path}) => {
 	}
 });
 
-ipcMain.on('atom-discord.data-update', (event, {projectName, currEditor: fileName, pluginOnline: focus}) => {
+ipcMain.on('pulsar-discord.data-update', (event, {projectName, currEditor: fileName, pluginOnline: focus}) => {
 	sender.updateActivity(projectName, fileName, focus);
 });
 
-ipcMain.on('atom-discord.online', (event, {id}) => {
+ipcMain.on('pulsar-discord.online', (event, {id}) => {
 	sender.setOnline(id);
 });
 
-ipcMain.on('atom-discord.offline', (event, {id}) => {
+ipcMain.on('pulsar-discord.offline', (event, {id}) => {
 	sender.setOffline(id);
 });
 
-ipcMain.on('atom-discord.toggle', (event) => {
+ipcMain.on('pulsar-discord.toggle', (event) => {
 	sender.toggle();
 });
 
-global.$ATOM_DISCORD = true;
+global.$PULSAR_DISCORD = true;

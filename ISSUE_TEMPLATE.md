@@ -19,8 +19,8 @@
 
 ## Information
 **Platform**: [Platform (OS)]  
-**Atom**: [Atom Version]  
-**Package Version**: [Commit Hash or Tag(Version)]
+**Pulsar**: [Pulsar Version]  
+**Package Version**: [Commit Hash or Tag(Version)]  
 
 ### Non-Core Packages
 ```

@@ -1,9 +1,9 @@
 {
-  "name": "atom-discord",
+  "name": "pulsar-discord",
   "main": "./src/index.js",
-  "version": "2.0.2",
-  "description": "Integrate atom with Discord and show Rich Presence information.",
-  "repository": "https://github.com/HelloWorld017/atom-discord",
+  "version": "3.0.0",
+  "description": "Integrate Pulsar with Discord and show Rich Presence information.",
+  "repository": "https://github.com/mzivic7/pulsar-discord",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

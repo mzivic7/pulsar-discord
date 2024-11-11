@@ -3,7 +3,7 @@
 	"working-no-project": "Trabajando en algunas cosas",
 	"editing-file": "Editando %fileName%",
 	"editing-idle": "Libre",
-	"atom-description": "Trabajando con Atom",
+	"pulsar-description": "Trabajando con Pulsar",
 	"type-description": "Editando un archivo de tipo %type%",
 	"type-unknown": "Editando un archivo",
 	"developer-idle": "¡El desarrollador está lo suficientemente cansado para descansar!"

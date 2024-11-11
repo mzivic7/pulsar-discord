@@ -3,7 +3,7 @@
 	"working-no-project": "Работает над некоторыми вещами",
 	"editing-file": "Редактирует %fileName%",
 	"editing-idle": "Отошел",
-	"atom-description": "Работает в Atom",
+	"pulsar-description": "Работает в Pulsar",
 	"type-description": "Редактирует файл %type%",
 	"type-unknown": "Редактирует файл",
 	"developer-idle": "Разработчику тоже нужен отдых!"

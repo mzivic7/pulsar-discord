@@ -28,8 +28,8 @@ module.exports = function createConfig(translate) {
 		},
 
 		{
-			value: 'atom-description',
-			description: translate('atom-description')
+			value: 'pulsar-description',
+			description: translate('pulsar-description')
 		},
 
 		{
@@ -55,28 +55,8 @@ module.exports = function createConfig(translate) {
 		},
 
 		{
-			value: "atom-original",
-			description: translate('config-image-atom-original')
-		},
-
-		{
-			value: "atom",
-			description: translate('config-image-atom')
-		},
-
-		{
-			value: "atom-2",
-			description: translate('config-image-atom-2')
-		},
-
-		{
-			value: "atom-3",
-			description: translate('config-image-atom-3')
-		},
-
-		{
-			value: "atom-5",
-			description: translate('config-image-atom-5')
+			value: "pulsar",
+			description: translate('config-image-pulsar')
 		},
 
 		{
@@ -205,7 +185,7 @@ module.exports = function createConfig(translate) {
 					title: translate('config-behaviour-customAppId'),
 					description: translate('config-behaviour-customAppId-desc'),
 					type: "string",
-					default: '380510159094546443',
+					default: '1305323233704284261',
 					order: 2
 				},
 
@@ -224,7 +204,7 @@ module.exports = function createConfig(translate) {
 			title: translate('config-smallImage'),
 			description: translate('config-smallImage-desc'),
 			type: 'object',
-			properties: createImageTextProperties('atom', 'atom-description'),
+			properties: createImageTextProperties('pulsar', 'pulsar-description'),
 			order: 3
 		},
 
@@ -378,8 +358,8 @@ module.exports = function createConfig(translate) {
 						},
 
 						{
-							value: 'atom-description',
-							description: translate('atom-description')
+							value: 'pulsar-description',
+							description: translate('pulsar-description')
 						},
 
 						{
@@ -397,7 +377,7 @@ module.exports = function createConfig(translate) {
 							description: translate('config-text-custom')
 						}
 					],
-					default: 'atom-description',
+					default: 'pulsar-description',
 					order: 7
 				},
 
@@ -543,92 +523,92 @@ module.exports = function createConfig(translate) {
 };
 
 module.exports.migrateV1toV2 = () => {
-	const behaviour = atom.config.get('atom-discord.behaviour');
+	const behaviour = atom.config.get('pulsar-discord.behaviour');
 	if(behaviour.sendSmallImage !== undefined) {
 		if(!behaviour.sendSmallImage) {
-			atom.config.set('atom-discord.smallImage.image', 'false');
+			atom.config.set('pulsar-discord.smallImage.image', 'false');
 		}
-		atom.config.unset('atom-discord.behaviour.sendSmallImage');
+		atom.config.unset('pulsar-discord.behaviour.sendSmallImage');
 	}
 
 	if(behaviour.sendLargeImage !== undefined) {
 		if(!behaviour.sendLargeImage) {
-			atom.config.set('atom-discord.largeImage.image', 'false');
+			atom.config.set('pulsar-discord.largeImage.image', 'false');
 		}
-		atom.config.unset('atom-discord.behaviour.sendLargeImage');
+		atom.config.unset('pulsar-discord.behaviour.sendLargeImage');
 	}
 
 	if(behaviour.preferType !== undefined) {
 		if(behaviour.preferType) {
-			atom.config.set('atom-discord.state.text', 'type-description');
+			atom.config.set('pulsar-discord.state.text', 'type-description');
 		}
-		atom.config.unset('atom-discord.behaviour.preferType');
+		atom.config.unset('pulsar-discord.behaviour.preferType');
 	}
 
 	if(behaviour.showFilenameOnLargeImage !== undefined) {
 		if(behaviour.showFilenameOnLargeImage) {
-			atom.config.set('atom-discord.largeImage.text', 'editing-file');
+			atom.config.set('pulsar-discord.largeImage.text', 'editing-file');
 		}
-		atom.config.unset('atom-discord.behaviour.showFilenameOnLargeImage');
+		atom.config.unset('pulsar-discord.behaviour.showFilenameOnLargeImage');
 	}
 
 	if(behaviour.alternativeIcon !== undefined) {
-		atom.config.set('atom-discord.smallImage.image', behaviour.alternativeIcon);
-		atom.config.unset('atom-discord.behaviour.alternativeIcon');
+		atom.config.set('pulsar-discord.smallImage.image', behaviour.alternativeIcon);
+		atom.config.unset('pulsar-discord.behaviour.alternativeIcon');
 	}
 
 	if(behaviour.useRestIcon !== undefined) {
 		if(!behaviour.useRestIcon) {
-			atom.config.set('atom-discord.rest.largeImage', 'text');
+			atom.config.set('pulsar-discord.rest.largeImage', 'text');
 		}
-		atom.config.unset('atom-discord.behaviour.useRestIcon');
+		atom.config.unset('pulsar-discord.behaviour.useRestIcon');
 	}
 
-	const privacy = atom.config.get('atom-discord.privacy');
+	const privacy = atom.config.get('pulsar-discord.privacy');
 	if(privacy.sendLargeImage !== undefined) {
 		// Useless configuration
-		atom.config.unset('atom-discord.privacy.sendLargeImage');
+		atom.config.unset('pulsar-discord.privacy.sendLargeImage');
 	}
 
 	if(privacy.sendFilename !== undefined) {
 		if(!privacy.sendFilename) {
 			if(!behaviour.preferType) {
-				atom.config.set('atom-discord.state.text', 'type-unknown');
+				atom.config.set('pulsar-discord.state.text', 'type-unknown');
 			}
 
 			if(behaviour.showFilenameOnLargeImage) {
-				atom.config.set('atom-discord.largeImage.text', 'type-unknown');
+				atom.config.set('pulsar-discord.largeImage.text', 'type-unknown');
 			}
 		}
-		atom.config.unset('atom-discord.privacy.sendFilename');
+		atom.config.unset('pulsar-discord.privacy.sendFilename');
 	}
 
 	if(privacy.sendProject !== undefined) {
 		if(!privacy.sendProject) {
-			atom.config.set('atom-discord.detail.text', 'working-no-project');
+			atom.config.set('pulsar-discord.detail.text', 'working-no-project');
 		}
-		atom.config.unset('atom-discord.privacy.sendProject');
+		atom.config.unset('pulsar-discord.privacy.sendProject');
 	}
 
 	if(privacy.sendFileType !== undefined) {
 		if(!privacy.sendFilename) {
-			atom.config.set('atom-discord.largeImage.image', 'text');
+			atom.config.set('pulsar-discord.largeImage.image', 'text');
 
 			if(behaviour.preferType) {
-				atom.config.set('atom-discord.state.text', 'type-unknown');
+				atom.config.set('pulsar-discord.state.text', 'type-unknown');
 			}
 
 			if(!behaviour.showFilenameOnLargeImage) {
-				atom.config.set('atom-discord.largeImage.text', 'type-unknown');
+				atom.config.set('pulsar-discord.largeImage.text', 'type-unknown');
 			}
 		}
-		atom.config.unset('atom-discord.privacy.sendFileType');
+		atom.config.unset('pulsar-discord.privacy.sendFileType');
 	}
 
 	if(privacy.sendElapsed !== undefined) {
 		if(!privacy.sendElapsed) {
-			atom.config.set('atom-discord.elapsed.send', false);
+			atom.config.set('pulsar-discord.elapsed.send', false);
 		}
-		atom.config.unset('atom-discord.privacy.sendElapsed');
+		atom.config.unset('pulsar-discord.privacy.sendElapsed');
 	}
 };

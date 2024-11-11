@@ -3,7 +3,7 @@
 	"working-no-project": "Werkt aan een project",
 	"editing-file": "Bewerkt %fileName%",
 	"editing-idle": "Niet actief",
-	"atom-description": "Werkt met Atom",
+	"pulsar-description": "Werkt met Pulsar",
 	"type-description": "Werkt aan een %type% bestand",
 	"type-unknown": "Bewerkt een bestand",
 	"developer-idle": "De ontwikkelaar heeft ook rust nodig!"

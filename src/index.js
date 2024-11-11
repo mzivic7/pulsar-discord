@@ -36,14 +36,14 @@ const SEND_DISCORD_PATH = require.resolve('./send-discord.js');
 const config = {
 	i18n: {
 		default: require('../i18n/en-US.json'),
-		value: require(`../i18n/${atom.config.get('atom-discord.i18n') || 'en-US'}.json`)
+		value: require(`../i18n/${atom.config.get('pulsar-discord.i18n') || 'en-US'}.json`)
 	},
-	directory: path.join(atom.getConfigDirPath(), 'atom-discord'),
-	path: path.join(atom.getConfigDirPath(), 'atom-discord', 'customize.json'),
-	logPath: path.join(atom.getConfigDirPath(), 'atom-discord', 'log.txt'),
+	directory: path.join(atom.getConfigDirPath(), 'pulsar-discord'),
+	path: path.join(atom.getConfigDirPath(), 'pulsar-discord', 'customize.json'),
+	logPath: path.join(atom.getConfigDirPath(), 'pulsar-discord', 'log.txt'),
 	customization: {},
 	usable: true,
-	loggable: atom.config.get('atom-discord.troubleShooting.debugLog')
+	loggable: atom.config.get('pulsar-discord.troubleShooting.debugLog')
 };
 
 
@@ -65,16 +65,16 @@ const showError = (key, args, detail) => {
 		}
 	);
 
-	if(detail) console.error("[atom-discord ERROR]", detail);
+	if(detail) console.error("[pulsar-discord ERROR]", detail);
 };
 
 const initialize = async () => {
 	try {
-		const notInitialized = !remote.getGlobal("$ATOM_DISCORD");
+		const notInitialized = !remote.getGlobal("$PULSAR_DISCORD");
 		remote.require(SEND_DISCORD_PATH);
 
 		if(notInitialized) {
-			ipcRenderer.send('atom-discord.initialize');
+			ipcRenderer.send('pulsar-discord.initialize');
 		}
 	} catch(err) {
 		showError('error-while-require', {}, err.stack);
@@ -93,7 +93,7 @@ const initialize = async () => {
 		try {
 			await promisify(fs.mkdir)(config.directory);
 		} catch(err) {
-			showError('generate-failed', {file: 'atom-discord'}, err.stack);
+			showError('generate-failed', {file: 'pulsar-discord'}, err.stack);
 			config.usable = false;
 			config.loggable = false;
 		}
@@ -138,7 +138,7 @@ const initialize = async () => {
 		}
 	}
 
-	ipcRenderer.send('atom-discord.logging', {loggable: config.loggable, path: config.logPath});
+	ipcRenderer.send('pulsar-discord.logging', {loggable: config.loggable, path: config.logPath});
 };
 
 const showCustomizeProject = () => {
@@ -209,7 +209,7 @@ const createLoop = () => {
 	const rendererId = Math.random().toString(36).slice(2);
 
 	const updateData = () => {
-		ipcRenderer.send('atom-discord.data-update', {
+		ipcRenderer.send('pulsar-discord.data-update', {
 			currEditor,
 			projectName,
 			pluginOnline: !pluginBlur && !pluginAfk
@@ -217,7 +217,7 @@ const createLoop = () => {
 	};
 
 	atom.getCurrentWindow().on('close', () => {
-		ipcRenderer.send('atom-discord.offline', {id: rendererId});
+		ipcRenderer.send('pulsar-discord.offline', {id: rendererId});
 	});
 
 	const afkHandle = () => {
@@ -229,7 +229,7 @@ const createLoop = () => {
 		atom.views.getView(atom.workspace).addEventListener('keydown', () => updateAfk());
 
 		const afkLoop = () => {
-			const isAFK = Date.now() > lastSeen + atom.config.get('atom-discord.rest.restOnAfkThreshold') * 1000;
+			const isAFK = Date.now() > lastSeen + atom.config.get('pulsar-discord.rest.restOnAfkThreshold') * 1000;
 
 			if(pluginAfk && !isAFK) {
 				pluginAfk = false;
@@ -245,7 +245,7 @@ const createLoop = () => {
 		afkLoop();
 	};
 
-	if(atom.config.get('atom-discord.rest.restOnAfk')) afkHandle();
+	if(atom.config.get('pulsar-discord.rest.restOnAfk')) afkHandle();
 
 
 	const blurHandle = () => {
@@ -266,11 +266,11 @@ const createLoop = () => {
 					pluginBlur = true;
 					updateData();
 				}
-			}, atom.config.get('atom-discord.rest.restOnBlurThreshold'));
+			}, atom.config.get('pulsar-discord.rest.restOnBlurThreshold'));
 		});
 	};
 
-	if(atom.config.get('atom-discord.rest.restOnBlur')) blurHandle();
+	if(atom.config.get('pulsar-discord.rest.restOnBlur')) blurHandle();
 
 
 	let onlineEditor = atom.workspace.getActiveTextEditor();
@@ -316,10 +316,10 @@ const createLoop = () => {
 	updater.updateProjectName = updateProjectName;
 	updater.updateData = updateData;
 
-	ipcRenderer.send('atom-discord.online', {id: rendererId});
+	ipcRenderer.send('pulsar-discord.online', {id: rendererId});
 
-	if(atom.config.get('atom-discord.troubleShooting.noDiscordNotification')) {
-		ipcRenderer.once('atom-discord.noDiscord', () => {
+	if(atom.config.get('pulsar-discord.troubleShooting.noDiscordNotification')) {
+		ipcRenderer.once('pulsar-discord.noDiscord', () => {
 			showError('error-no-discord');
 		});
 	}
@@ -330,20 +330,20 @@ module.exports = {
 		initialize().then(() => {
 			createLoop();
 
-			atom.commands.add('atom-workspace', "atom-discord:toggle", (ev) => {
-				ipcRenderer.send('atom-discord.toggle');
+			atom.commands.add('atom-workspace', "pulsar-discord:toggle", (ev) => {
+				ipcRenderer.send('pulsar-discord.toggle');
 			});
 
-			atom.commands.add('atom-workspace', "atom-discord:migrate", (ev) => {
+			atom.commands.add('atom-workspace', "pulsar-discord:migrate", (ev) => {
 				createConfig.migrateV1toV2();
 			});
 
-			atom.commands.add('atom-text-editor', "atom-discord:project-customize", (ev) => {
+			atom.commands.add('atom-text-editor', "pulsar-discord:project-customize", (ev) => {
 				showCustomizeProject();
 			});
 
-			atom.config.onDidChange('atom-discord', ev => {
-				setTimeout(() => ipcRenderer.send('atom-discord.updateConfig'), 500);
+			atom.config.onDidChange('pulsar-discord', ev => {
+				setTimeout(() => ipcRenderer.send('pulsar-discord.updateConfig'), 500);
 			});
 		});
 	},
