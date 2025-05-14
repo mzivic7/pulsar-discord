@@ -438,6 +438,9 @@ class DiscordSender {
 			if(focusedContents) {
 				focusedContents.send('pulsar-discord.noDiscord');
 			}
+			
+			setTimeout(() => this.loop(), 10000);
+			return;
 		}
 
 		if(this.isRendererOnline) this.sendActivity();
